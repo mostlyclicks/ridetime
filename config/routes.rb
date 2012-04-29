@@ -1,4 +1,12 @@
 Ridetime::Application.routes.draw do
+  
+  match '/rider_start' => 'riders#rider_start'
+  match '/rider_finish' => 'riders#rider_finish'
+  match '/cleartime' => 'riders#cleartime'
+  resources :riders
+  
+  
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

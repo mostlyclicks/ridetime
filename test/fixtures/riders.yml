@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  name: MyString
+  race_number: 1
+  start_time: 2012-04-20 21:11:00
+  finish_time: 2012-04-20 21:11:00
+
+two:
+  name: MyString
+  race_number: 1
+  start_time: 2012-04-20 21:11:00
+  finish_time: 2012-04-20 21:11:00

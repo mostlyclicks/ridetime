@@ -1,0 +1,38 @@
+<h1>Listing riders</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Race number</th>
+    <th>Start time</th>
+    <th>Finish time</th>
+    <th>Show</th>
+    <th>Edit</th>
+    <th>Destroy</th>
+    <th>Start</th>
+    <th>Finish</th>
+    <th>Clear</th>
+    <th>Rider Time</th>
+  </tr>
+
+<% @riders.each do |rider| %>
+  <tr>
+    <td><%= rider.name %></td>
+    <td><%= rider.race_number %></td>
+    <td>
+      <%= rider.start_time.strftime('%M.%S') unless rider.start_time.nil? %></td>
+    <td><%= rider.finish_time.strftime('%M.%S') unless rider.finish_time.nil? %></td>
+    <td><%= link_to 'Show', rider %></td>
+    <td><%= link_to 'Edit', edit_rider_path(rider) %></td>
+    <td><%= link_to 'Destroy', rider, confirm: 'Are you sure?', method: :delete %></td>
+    <td><button><%= link_to 'Start', :action => 'rider_start', :id => rider.id %></button></td>
+    <td><button><%= link_to 'Finish', :action => 'rider_finish', :id => rider.id %></button></td>
+    <td><button><%= link_to 'Clear', :action => 'cleartime', :id => rider.id %></button></td>
+    <td><% f_time = rider.rider_time %> <%= f_time  %> </td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Rider', new_rider_path %>
