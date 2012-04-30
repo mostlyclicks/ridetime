@@ -1,10 +1,30 @@
+
 class RidersController < ApplicationController
   
   #attr_accessor :riders_time
   # GET /riders
   # GET /riders.json
   def index
-    @riders = Rider.all.find.sort_by(&:rider_time)
+    @riders = Rider.all.find.sort_by(&:race_number)
+    
+    
+
+    respond_to do |format|
+      format.html # index.html.erb
+      format.json { render json: @riders }
+    end
+  end
+  
+  def leader_board
+    @riders_pre = Rider.all
+    
+    @riders_pre.each do |roc|
+      if roc.start_time? && roc.finish_time?
+        @riders << roc
+      end
+    end
+    
+    
     
     respond_to do |format|
       format.html # index.html.erb
@@ -14,10 +34,8 @@ class RidersController < ApplicationController
   
   def cleartime
     @rider = Rider.find(params[:id])
-    
-    #@rider.finish_time.to_nil
-    
-    
+    #@rider.start_time = Time.now
+    #@rider.finish_time = Time.now + 1
     respond_to do |format|
        if @rider.update_attributes(params[:rider])
          format.html { redirect_to riders_path, notice: 'Rider was successfully updated.' }
@@ -31,14 +49,16 @@ class RidersController < ApplicationController
     
   end
   
-  def ridetime
-     @rider = Rider.find(params[:id])
-     @rider.rider_time
-  end
+  #def ridetime
+  #   @rider = Rider.find(params[:id])
+  #   time_diff_components[:seconds]
+  #   #@rider.rider_time
+  #end
   
   def rider_start
    @rider = Rider.find(params[:id])
    @rider.start_time = Time.now
+   
    
    respond_to do |format|
      if @rider.update_attributes(params[:rider])
@@ -67,11 +87,6 @@ class RidersController < ApplicationController
   end
   
 
-  
-  
-  #def rider_time
-  #  @ridertime = "Hello"
-  #end
 
   # GET /riders/1
   # GET /riders/1.json

@@ -1,7 +1,15 @@
+#require 'chronic'
+require 'chronic_duration'
+
 class Rider < ActiveRecord::Base
+  
+  #attr_accessible :start_time, :finish_time
+  
   def rider_time
     #finish_time - start_time
-    rider_time = self.distance_between(start_time, finish_time)
+    #rider_time = self.distance_between(start_time, finish_time)
+    c = (finish_time - start_time).round
+    ChronicDuration.output(c, :format => :short)
   end
   
   def distance_between(start_time, finish_time)
@@ -11,15 +19,11 @@ class Rider < ActiveRecord::Base
     difference    = (difference - seconds) / 60
     minutes       = difference % 60
     
-
-      
-    
     return "#{minutes}:#{seconds}"
   end
   
-  
-  def to_time()
-    self
-  end
+  #def clear_time
+  #  self.finish_time = ChronicDuration.output(0)
+  #end
 
 end

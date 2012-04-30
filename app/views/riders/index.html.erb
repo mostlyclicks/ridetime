@@ -28,7 +28,14 @@
     <td><button><%= link_to 'Start', :action => 'rider_start', :id => rider.id %></button></td>
     <td><button><%= link_to 'Finish', :action => 'rider_finish', :id => rider.id %></button></td>
     <td><button><%= link_to 'Clear', :action => 'cleartime', :id => rider.id %></button></td>
-    <td><% f_time = rider.rider_time %> <%= f_time  %> </td>
+    <td><%# f_time = rider.rider_time %> <%#= f_time  %>
+      <% if rider.start_time.nil? || rider.finish_time.nil? %>
+        <%= "Not Started Yet" %>
+      <% else %>
+        <%= rider.rider_time %>
+      <% end %>
+      
+    </td>
   </tr>
 <% end %>
 </table>

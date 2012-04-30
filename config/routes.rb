@@ -3,6 +3,7 @@ Ridetime::Application.routes.draw do
   match '/rider_start' => 'riders#rider_start'
   match '/rider_finish' => 'riders#rider_finish'
   match '/cleartime' => 'riders#cleartime'
+  match '/leader_board' => 'riders#leader_board'
   resources :riders
   
   
