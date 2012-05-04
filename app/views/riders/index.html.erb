@@ -4,8 +4,9 @@
   <tr>
     <th>Name</th>
     <th>Race number</th>
-    <th>Start time</th>
-    <th>Finish time</th>
+    <th>Rider status</th>
+    <th>Rider Finish</th>
+   
     <th>Show</th>
     <th>Edit</th>
     <th>Destroy</th>
@@ -13,29 +14,56 @@
     <th>Finish</th>
     <th>Clear</th>
     <th>Rider Time</th>
+    
   </tr>
 
 <% @riders.each do |rider| %>
-  <tr>
-    <td><%= rider.name %></td>
+  <tr id="<%= rider.id %>">
+    <td id="name"><%= rider.name %></td>
     <td><%= rider.race_number %></td>
-    <td>
-      <%= rider.start_time.strftime('%M.%S') unless rider.start_time.nil? %></td>
-    <td><%= rider.finish_time.strftime('%M.%S') unless rider.finish_time.nil? %></td>
+    
+    <td id="td_start">
+      <%# if rider.start_time.nil? && rider.finish_time.nil? %>
+        <%#= 'Not started' %>
+      <%# elsif rider.start_time && rider.finish_time.nil? %>
+        <%#= 'On Course' %>
+      <%# else %>
+        <%#= 'Finished' %>
+      <%# end %>
+      <%#= rider.start_time.strftime('%M:%S') unless rider.start_time.nil? %>
+      <%= rider.start_time.strftime('%M:%S') unless rider.start_time.nil? %> 
+      
+      
+      
+    </td>
+    <td id="td_finish"><%= rider.finish_time.strftime('%M:%S') unless rider.finish_time.nil? %></td>
+
     <td><%= link_to 'Show', rider %></td>
     <td><%= link_to 'Edit', edit_rider_path(rider) %></td>
     <td><%= link_to 'Destroy', rider, confirm: 'Are you sure?', method: :delete %></td>
-    <td><button><%= link_to 'Start', :action => 'rider_start', :id => rider.id %></button></td>
-    <td><button><%= link_to 'Finish', :action => 'rider_finish', :id => rider.id %></button></td>
-    <td><button><%= link_to 'Clear', :action => 'cleartime', :id => rider.id %></button></td>
-    <td><%# f_time = rider.rider_time %> <%#= f_time  %>
-      <% if rider.start_time.nil? || rider.finish_time.nil? %>
-        <%= "Not Started Yet" %>
-      <% else %>
-        <%= ChronicDuration.output(rider.rider_time, :format => :short) %>
-      <% end %>
+    <td><button id="start_btn"><%= link_to 'Start', :action => 'rider_start', :id => rider.id %></button></td>
+    <td><button id="finish_btn"><%= link_to 'Finish', :action => 'rider_finish', :id => rider.id %></button></td>
+    <td><button id="clear_btn"><%= link_to 'Clear', :action => 'cleartime', :id => rider.id %></button></td>
+    <td id="td_rider_time">
+     
+      <% if rider.start_time? && rider.finish_time? %>
+        'Hello it exists'
+        <% rtime = rider.finish_time - rider.start_time %>
+        <%= ChronicDuration.output(rtime) %>
+        <% else %>
+        'It does not exist'
+        <% end %>
+    <%#= rider.rider_time %>
+    <%# f_time = rider.rider_time %> <%#= f_time  %>
+      <%# if rider.start_time.nil? || rider.finish_time.nil? %>
+        <%#= "Not Started Yet" %>
+      <%# else %>
+        
+        <%#= ChronicDuration.output(rider.start_time, :format => :short) %>
+      <%# end %>
       
     </td>
+    
   </tr>
 <% end %>
 </table>
