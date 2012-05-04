@@ -32,7 +32,7 @@
       <% if rider.start_time.nil? || rider.finish_time.nil? %>
         <%= "Not Started Yet" %>
       <% else %>
-        <%= rider.rider_time %>
+        <%= ChronicDuration.output(rider.rider_time, :format => :short) %>
       <% end %>
       
     </td>

@@ -3,27 +3,33 @@ require 'chronic_duration'
 
 class Rider < ActiveRecord::Base
   
-  #attr_accessible :start_time, :finish_time
+  after_create :push_create
+  after_update :push_update
   
   def rider_time
-    #finish_time - start_time
-    #rider_time = self.distance_between(start_time, finish_time)
     c = (finish_time - start_time).round
-    ChronicDuration.output(c, :format => :short)
   end
   
-  def distance_between(start_time, finish_time)
-    difference    = 0
-    difference    = finish_time.to_i - start_time.to_i
-    seconds       = difference % 60
-    difference    = (difference - seconds) / 60
-    minutes       = difference % 60
-    
-    return "#{minutes}:#{seconds}"
+  protected
+  
+  def push_create
+    push_event('create')
   end
   
-  #def clear_time
-  #  self.finish_time = ChronicDuration.output(0)
-  #end
+  def push_update
+    push_event('update')
+  end
+  
+  def push_event(event_type)
+    Pusher["ridertime-#{Rails.env}"].trigger(event_type,
+                                    {:id => self.id.to_s, #do I need this?
+                                    :name => self.name,
+                                    :race_number => self.race_number,
+                                    :start_time => self.start_time,
+                                    :finish_time => self.finith_time,
+                                    :rider_time => self.rider_time})
+  end
+  
+
 
 end

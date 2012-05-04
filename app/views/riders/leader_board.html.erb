@@ -4,6 +4,7 @@
     <th>Race Number</th>
     <th>Rider Time</th>
   </tr>
+
 <% @riders.each do |r| %>
   <tr>
     <td><%= r.name %></td>
@@ -12,7 +13,7 @@
       <% if r.start_time.nil? || r.finish_time.nil? %>
         <%= "Not Started Yet" %>
       <% else %>
-        <%= r.rider_time %>
+        <%= ChronicDuration.output(r.rider_time) %>
       <% end %>
     </td>
   </tr>
