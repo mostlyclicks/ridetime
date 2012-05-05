@@ -1,5 +1,5 @@
-<h1>Listing riders</h1>
-
+<h1>Riders</h1>
+<%= link_to 'New Rider', new_rider_path %>
 <table>
   <tr>
     <th>Name</th>
@@ -47,7 +47,7 @@
     <td id="td_rider_time">
      
       <% if rider.start_time? && rider.finish_time? %>
-        'Hello it exists'
+        
         <% rtime = rider.finish_time - rider.start_time %>
         <%= ChronicDuration.output(rtime) %>
         <% else %>

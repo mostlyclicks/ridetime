@@ -8,12 +8,12 @@ class Rider < ActiveRecord::Base
   
   after_update :push_cleartime
   after_update :push_finish
-  after_update :push_start
+  before_update :push_start
   
-  def rider_time
-    'Hello'
-    #c = (finish_time - start_time).round
-  end
+  #def rider_time
+  #  'Hello'
+  #  #c = (finish_time - start_time).round
+  #end
   
   protected
   
@@ -43,18 +43,14 @@ class Rider < ActiveRecord::Base
     push_event('update')
   end
   
-  def z
-    23
-  end
-  
   def push_event(event_type)
     
     Pusher["ridetime-#{Rails.env}"].trigger(event_type,
                                     {:id => self.id.to_s, #do I need this?
                                     :name => self.name,
                                     :race_number => self.race_number,
-                                    :start_time => self.start_time,
-                                    :finish_time => self.finish_time
+                                    :start_time => self.start_time.to_i,
+                                    :finish_time => self.finish_time.to_i
                                     #:rider_time => self.rider_time#,
                                     })
   end

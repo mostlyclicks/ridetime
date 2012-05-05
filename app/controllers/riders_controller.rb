@@ -39,6 +39,7 @@ class RidersController < ApplicationController
   def rider_start
    @rider = Rider.find(params[:id])
    @rider.start_time = Time.now
+   puts 'Hello from Start'
    respond_to do |format|
      if @rider.update_attributes(params[:rider])
        format.html { redirect_to riders_path, notice: 'Rider was successfully updated.' }
