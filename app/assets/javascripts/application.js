@@ -68,7 +68,8 @@ $(function() {
   //var s_time = ChronicDuration.output(rider.start_time)
  pusher.bind('start_time', function(rider) {
     console.log('Hit start');
-    $("tr#" + rider.id).children("#td_start").text(rider.start_time);
+    //$("tr#" + rider.id).children("#td_start").text(rider.start_time);
+    $("tr#" + rider.id).children("#td_start").text("Hello");
     //$.get('/riders/rider_start/' + rider.id)
   });
 
@@ -80,6 +81,14 @@ $(function() {
       
     //$("tr#" + rider.id).children("#td_rider_time").replaceWith("<small>Finished</small>");
   });
+  
+  pusher.bind('leader_board', function(rider) {
+     console.log('Hit finish');
+     $("tr#" + rider.id).children("#l_ridertime").text(rider.rider_time);
+     
+
+     //$("tr#" + rider.id).children("#td_rider_time").replaceWith("<small>Finished</small>");
+   });
   
   pusher.bind('cleartime', function(rider) {
      $("tr#" + rider.id).children("#td_start").text(rider.start_time);

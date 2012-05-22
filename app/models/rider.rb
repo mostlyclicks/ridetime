@@ -10,10 +10,10 @@ class Rider < ActiveRecord::Base
   after_update :push_finish
   before_update :push_start
   
-  #def rider_time
-  #  'Hello'
-  #  #c = (finish_time - start_time).round
-  #end
+  def rider_time
+    
+    c = (finish_time - start_time).round
+  end
   
   protected
   

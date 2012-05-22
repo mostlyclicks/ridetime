@@ -6,10 +6,10 @@
   </tr>
 
 <% @riders.each do |r| %>
-  <tr>
+  <tr id="<%= r.id %>">
     <td><%= r.name %></td>
     <td><%= r.race_number %></td>
-    <td>
+    <td id="l_ridertime">
       <% if r.start_time.nil? || r.finish_time.nil? %>
         <%= "Not Started Yet" %>
       <% else %>
